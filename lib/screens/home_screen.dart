@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,13 +79,33 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     chooseitem(
-                        "assets/The Peace.png", "Mohammed", Icons.abc, false),
-                    chooseitem("assets/Stress Relief.png", "ahmed",
-                        Icons.dangerous, false),
-                    chooseitem("assets/rapper.png", "bisan", Icons.access_alarm,
-                        false),
-                    chooseitem("assets/golfer.png", "heba",
-                        Icons.account_circle, false),
+                        images: "assets/The Peace.png",
+                        description:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                        name: "The Peace",
+                        haveBorder: false,
+                        times: "10 min"),
+                    chooseitem(
+                        images: "assets/Stress Relief.png",
+                        description:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                        name: "Stress Relief",
+                        haveBorder: false,
+                        times: "15 min"),
+                    chooseitem(
+                        images: "assets/rapper.png",
+                        description:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                        name: "rapper",
+                        haveBorder: false,
+                        times: "20 min"),
+                    chooseitem(
+                        images: "assets/golfer.png",
+                        description:
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                        name: "golfer",
+                        haveBorder: false,
+                        times: "25 min"),
                   ],
                 ),
               ),
@@ -101,6 +126,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 30,
+              )
             ],
           ),
         ),
@@ -121,7 +149,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget chooseitem(
-      String images, String name, IconData data, bool haveBorder) {
+      {required String images,
+      required String name,
+      required String description,
+      required bool haveBorder,
+      required String times}) {
     return Padding(
       padding: const EdgeInsets.all(13),
       child: Container(
@@ -136,7 +168,7 @@ class HomeScreen extends StatelessWidget {
               : null,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               width: 65,
@@ -148,11 +180,37 @@ class HomeScreen extends StatelessWidget {
                 images,
               ),
             ),
-            Icon(data, color: const Color(0xff13442E)),
             Text(
               name,
-              style: const TextStyle(color: Color(0xff13442E), fontSize: 14),
+              style: const TextStyle(
+                  color: Color(0xff000000),
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              width: 120,
+              child: Text(description,
+                  maxLines: 2,
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(times),
+                InkWell(
+                  child: Image.asset(
+                    "assets/button_forword.png",
+                  ),
+                  onTap: () {},
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -163,10 +221,14 @@ class HomeScreen extends StatelessWidget {
     return Column(
       children: [
         Image.asset(icons),
-        Text(
-          name,
-          style: const TextStyle(
-            fontSize: 14,
+        SizedBox(
+          width: 70,
+          child: Text(
+            name,
+            maxLines: 2,
+            style: const TextStyle(
+              fontSize: 14,
+            ),
           ),
         )
       ],
