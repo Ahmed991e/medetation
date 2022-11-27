@@ -55,17 +55,23 @@ class HomeScreen extends StatelessWidget {
                       mycard(context,
                           time: "10 min",
                           image: "assets/The Peace.png",
-                          title: "The Peace"),
+                          title: "The Peace",
+                          description:
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
                       const SizedBox(width: 8),
                       mycard(context,
                           time: "15 min",
                           image: "assets/Stress Relief.png",
-                          title: "Stress Relief"),
+                          title: "Stress Relief",
+                          description:
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
                       const SizedBox(width: 8),
                       mycard(context,
                           time: "20 min",
                           image: "assets/rapper.png",
-                          title: "Rapper"),
+                          title: "Rapper",
+                          description:
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
                     ],
                   ),
                 ),
@@ -121,7 +127,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget mycard(BuildContext context,
-      {required String title, required String image, required String time}) {
+      {required String title,
+      required String image,
+      required String time,
+      required String description}) {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -129,6 +138,8 @@ class HomeScreen extends StatelessWidget {
             builder: ((context) {
               return DetailsScreen(
                 title: title,
+                image: image,
+                description: description,
               );
             }),
           ),
@@ -156,10 +167,12 @@ class HomeScreen extends StatelessWidget {
                     const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
-              child: const Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                  maxLines: 3,
-                  style: TextStyle(fontSize: 10)),
+              child: Text(
+                description,
+                // "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                maxLines: 3,
+                style: const TextStyle(fontSize: 10),
+              ),
             ),
             const SizedBox(height: 8),
             Row(
