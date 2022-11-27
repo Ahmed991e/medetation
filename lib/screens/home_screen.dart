@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:meditation/screens/details_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffB3CEC9),
       body: SafeArea(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
           child: Column(
             children: [
               Center(child: Image.asset("assets/vector_1.png")),
-
               const Text(
                 'Take A Breath',
                 style: TextStyle(
@@ -29,106 +22,74 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                width: 300,
-                child: Text(
-                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400),
-                  textAlign: TextAlign.center,
+              const Text(
+                "It is a long established fact that a reader will be distracted by the ",
+                style: TextStyle(
+                  fontSize: 10,
                 ),
               ),
+              const Text(
+                  "readable content of a page when looking at its layout.",
+                  style: TextStyle(
+                    fontSize: 10,
+                  )),
               const SizedBox(
                 height: 10,
               ),
-              // Text("Take A Breath",
-              //     style: GoogleFonts.rubik  (
-              //       textStyle: const TextStyle(fontSize: 22, color: Color(0xff1A7F72), fontWeight: FontWeight.bold),
-              //     ))
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  categoryitem("assets/meditation.png", true),
-                  categoryitem("assets/yoga.png", false),
-                  categoryitem("assets/sound.png", false),
+                  categories("Miditation", "assets/meditation.png"),
+                  categories("Yoga", "assets/yoga.png"),
+                  categories("Sound", "assets/sound.png"),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text(
-                    "Meditation",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    "Yoga  ",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    "Sound",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+              const SizedBox(height: 15),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    chooseitem(
-                        images: "assets/The Peace.png",
-                        description:
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                        name: "The Peace",
-                        haveBorder: false,
-                        times: "10 min"),
-                    chooseitem(
-                        images: "assets/Stress Relief.png",
-                        description:
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                        name: "Stress Relief",
-                        haveBorder: false,
-                        times: "15 min"),
-                    chooseitem(
-                        images: "assets/rapper.png",
-                        description:
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                        name: "rapper",
-                        haveBorder: false,
-                        times: "20 min"),
-                    chooseitem(
-                        images: "assets/golfer.png",
-                        description:
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                        name: "golfer",
-                        haveBorder: false,
-                        times: "25 min"),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      mycard(context,
+                          time: "10 min",
+                          image: "assets/The Peace.png",
+                          title: "The Peace"),
+                      const SizedBox(width: 8),
+                      mycard(context,
+                          time: "15 min",
+                          image: "assets/Stress Relief.png",
+                          title: "Stress Relief"),
+                      const SizedBox(width: 8),
+                      mycard(context,
+                          time: "20 min",
+                          image: "assets/rapper.png",
+                          title: "Rapper"),
+                    ],
+                  ),
                 ),
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: const [
+                  SizedBox(width: 28),
+                  Text("Benefits",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  benefits(
-                    "Increase Blood Fluid",
-                    "assets/Increase Blood Fluid.png",
-                  ),
-                  benefits(
-                    "Relax Mind",
-                    "assets/Relax Mind.png",
-                  ),
-                  benefits(
-                    "Straighten Your Mood",
-                    "assets/Straighten Your Mood.png",
-                  ),
+                  benfitsCard("assets/Increase Blood Fluid.png", "Increase",
+                      "Blood  Fluid"),
+                  benfitsCard("assets/Relax Mind.png", "Relax", "Mind"),
+                  benfitsCard(
+                      "assets/Straighten Your Mood.png", "Straighten", "mood"),
                 ],
               ),
-              const SizedBox(
-                height: 30,
-              )
+              const SizedBox(height: 15),
             ],
           ),
         ),
@@ -136,79 +97,78 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget categoryitem(String name, bool haveBorder) {
-    return Container(
-      width: 85,
-      height: 65,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: haveBorder ? const Color(0xff1A7F72) : Colors.white,
+  Widget benfitsCard(String image, String text1, String text2) {
+    return SizedBox(
+      child: Column(
+        children: [
+          Image.asset(image),
+          asmetext1(text1),
+          asmetext1(text2),
+        ],
       ),
-      child: Image.asset(name),
     );
   }
 
-  Widget chooseitem(
-      {required String images,
-      required String name,
-      required String description,
-      required bool haveBorder,
-      required String times}) {
-    return Padding(
-      padding: const EdgeInsets.all(13),
+  Widget asmetext1(String lolo) {
+    return SizedBox(
+      height: 25,
+      child: Text(
+        lolo,
+        maxLines: 2,
+        style: const TextStyle(fontSize: 16),
+      ),
+    );
+  }
+
+  Widget mycard(BuildContext context,
+      {required String title, required String image, required String time}) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) {
+              return DetailsScreen(
+                title: title,
+              );
+            }),
+          ),
+        );
+      },
       child: Container(
-        width: 150,
+        decoration: const BoxDecoration(
+            color: Color(0xffFFFFFF),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 180,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-          color: Colors.white,
-          border: haveBorder
-              ? Border.all(
-                  color: haveBorder ? Colors.blueAccent : Colors.transparent)
-              : null,
-        ),
+        width: 150,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const SizedBox(height: 17),
             Container(
-              width: 65,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xff1A7F72),
-              ),
-              child: Image.asset(
-                images,
-              ),
+                decoration: const BoxDecoration(
+                    color: Color(0xff1A7F72),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                width: 65,
+                height: 65,
+                child: Image.asset(image)),
+            const SizedBox(height: 8),
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: const Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 10)),
             ),
-            Text(
-              name,
-              style: const TextStyle(
-                  color: Color(0xff000000),
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              width: 120,
-              child: Text(description,
-                  maxLines: 2,
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xff000000),
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                  )),
-            ),
+            const SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(times),
-                InkWell(
-                  child: Image.asset(
-                    "assets/button_forword.png",
-                  ),
-                  onTap: () {},
-                ),
+                const SizedBox(width: 10),
+                Text(time, style: const TextStyle(fontSize: 10)),
+                Expanded(child: Container()),
+                Image.asset("assets/button_forword.png"),
+                const SizedBox(width: 10),
               ],
             )
           ],
@@ -217,20 +177,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget benefits(String name, String icons) {
+  Widget categories(String name, String image) {
     return Column(
       children: [
-        Image.asset(icons),
-        SizedBox(
-          width: 70,
-          child: Text(
-            name,
-            maxLines: 2,
-            style: const TextStyle(
-              fontSize: 14,
-            ),
-          ),
-        )
+        Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            height: 65,
+            child: Image.asset(image)),
+        const SizedBox(height: 8),
+        Text(name, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
